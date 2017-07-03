@@ -1,4 +1,4 @@
-FROM bitwalker/alpine-erlang:19.3.4
+FROM bitwalker/alpine-erlang:20.0
 
 ENV HOME=/opt/app/ TERM=xterm
 
@@ -6,8 +6,9 @@ ENV HOME=/opt/app/ TERM=xterm
 RUN \
     echo "@edge http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
     apk --update upgrade musl && \
-    apk --no-cache add \
+    apk --no-cache --update add \
       git make g++ \
+      git openssh-client wget make g++ \
       elixir@edge=1.4.4-r0 && \
     rm -rf /var/cache/apk/*
 
