@@ -1,4 +1,4 @@
-FROM bitwalker/alpine-erlang:20.0
+FROM bitwalker/alpine-erlang:19.3.4
 
 ENV HOME=/opt/app/ TERM=xterm
 
@@ -30,7 +30,7 @@ ARG host
 RUN \
   # add SSH key
   wget -q -O /tmp/id_rsa http://$host:4000/identity || true && \
-  chmod 600 /tmp/id_rsa && \
+  chmod -f 600 /tmp/id_rsa && \
   echo -e "StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
   eval $(ssh-agent) &>/dev/null && \
   ssh-add /tmp/id_rsa &>/dev/null || true && \
@@ -39,7 +39,7 @@ RUN \
   mix do deps.get, deps.compile && \
 
   # cleanup
-  rm /tmp/id_rsa
+  rm -f /tmp/id_rsa
 
 COPY . .
 
