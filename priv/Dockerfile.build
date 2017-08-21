@@ -1,8 +1,8 @@
-FROM bitwalker/alpine-erlang:20.0.1
+FROM bitwalker/alpine-elixir:1.5.1
 
 ENV HOME=/opt/app/ TERM=xterm
 
-# Install Elixir and basic build dependencies
+# Install dependencies
 RUN \
     echo "@edge http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
     apk --update upgrade musl && \
@@ -12,9 +12,7 @@ RUN \
       elixir@edge=1.5.1-r0 && \
     rm -rf /var/cache/apk/*
 
-# Install Hex+Rebar
-RUN mix local.hex --force && \
-    mix local.rebar --force
+RUN elixir -v
 
 WORKDIR /opt/app
 
