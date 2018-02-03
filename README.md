@@ -8,7 +8,7 @@ and [distillery](https://github.com/bitwalker/distillery) releases.
 
 ## Installation
 
-  1. Add `mix_docker` to your list of dependencies in `mix.exs`:
+1. Add `mix_docker` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -16,41 +16,44 @@ def deps do
 end
 ```
 
-  2. Configure Docker image name
+2. Configure Docker image name
 
 ```elixir
 # config/config.exs
 config :mix_docker, image: "recruitee/hello"
 ```
 
-  3. Run `mix docker.init` to init distillery release configuration
+3. Run `mix docker.init` to init distillery release configuration
 
-  4. Run `mix docker.build` & `mix docker.release` to build the image. See [Usage](#Usage) for more.
-
+4. Run `mix docker.build` & `mix docker.release` to build the image. See [Usage](#Usage) for more.
 
 ## Guides
 
-- [Getting Started Tutorial](http://teamon.eu/2017/deploying-phoenix-to-production-using-docker/)
-- [Setting up cluster with Rancher](http://teamon.eu/2017/setting-up-elixir-cluster-using-docker-and-rancher/)
-- [Phoenix App Configuration Walkthrough](https://shovik.com/blog/8-deploying-phoenix-apps-with-docker)
+* [Getting Started Tutorial](http://teamon.eu/2017/deploying-phoenix-to-production-using-docker/)
+* [Setting up cluster with Rancher](http://teamon.eu/2017/setting-up-elixir-cluster-using-docker-and-rancher/)
+* [Phoenix App Configuration Walkthrough](https://shovik.com/blog/8-deploying-phoenix-apps-with-docker)
 
 ## Usage
 
 ### Build a release
+
 Run `mix docker.build` to build a release inside docker container
 
 ### Create minimal run container
+
 Run `mix docker.release` to put the release inside minimal docker image
 
 ### Publish to docker registry
+
 Run `mix docker.publish` to push newly created image to docker registry
 
 ### All three in one pass
+
 Run `mix docker.shipit`
 
 ### Customize default Dockerfiles
-Run `mix docker.customize`
 
+Run `mix docker.customize`
 
 ## FAQ
 
@@ -90,7 +93,7 @@ mix docker.publish --tag "{mix-version}-{git-branch}"
 See below for a list of possible variables
 
 | Variable        | Description                            |
-|-----------------|----------------------------------------|
+| --------------- | -------------------------------------- |
 | `{mix-version}` | Current project version from `mix.exs` |
 | `{rel-version}` | Default distillery release version     |
 | `{git-sha}`     | Git commit SHA (10 characters)         |
@@ -98,24 +101,26 @@ See below for a list of possible variables
 | `{git-count}`   | Git commit count                       |
 | `{git-branch}`  | Git branch                             |
 
-
 #### What version of Erlang/Elixir is installed by default?
+
 The default dockerfiles are based on [bitwalker/alpine-erlang](https://github.com/bitwalker/alpine-erlang) and elixir installed from [apk repository](https://pkgs.alpinelinux.org/packages?name=elixir&branch=&repo=&arch=&maintainer=)
 
 The following table summarizes the default versions:
 
-| mix_docker version   | alpine   | erlang   | elixir                             |
-|----------------------|----------|----------|------------------------------------|
-| up to `0.3.2`        | `3.4`    | `18.3`   | `elixir@edge` at the time of build |
-| `0.4.0`              | `3.5`    | `19.2`   | `elixir@edge=1.4.1-r0`             |
-| `0.4.1`              | `3.5`    | `19.2`   | `elixir@edge=1.4.2-r0`             |
+| mix_docker version | alpine | erlang   | elixir                             |
+| ------------------ | ------ | -------- | ---------------------------------- |
+| up to `0.3.2`      | `3.4`  | `18.3`   | `elixir@edge` at the time of build |
+| `0.4.0`            | `3.5`  | `19.2`   | `elixir@edge=1.4.1-r0`             |
+| `0.4.1`            | `3.5`  | `19.2`   | `elixir@edge=1.4.2-r0`             |
+| git master         | `3.5`  | `20.2.2` | `elixir@edge=1.6.1`                |
 
 Please note that you can use any version you want by customizing your dockerfiles. See `mix docker.customize` for reference.
 
 #### How to provide identity so mix can fetch dependencies from git repositories using ssh?
+
 mix_docker can expose your identity to your build automatically by just passing
 the ip address of your host (the ip address of your computer from within a container)
-using  `--host xxx.xxx.xxx.xxx`
+using `--host xxx.xxx.xxx.xxx`
 
 For example:
 
@@ -128,6 +133,7 @@ If you are on linux, you can leverage the docker bridge and your host address sh
 On OS X, there is no docker bridge, so if you still use docker machine, your host address should be `192.168.99.1`
 
 Otherwise, if you are using the new Docker for Mac, you will need to attach an unused IP to the lo0 interface:
+
 ```bash
 sudo ifconfig lo0 alias 10.200.10.1/24
 ```
@@ -168,7 +174,6 @@ config :mix_docker,
 The path is relative to the project root, and the files must be located inside
 the root.
 
-
 #### How to configure an Umbrella app?
 
 The default build Dockerfile does not handle the installation of umbrella app
@@ -190,7 +195,6 @@ COPY apps/my_second_app/config/* apps/my_second_app/config/
 
 # etc.
 ```
-
 
 #### How to configure a Phoenix app?
 
