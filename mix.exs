@@ -5,14 +5,12 @@ defmodule MixDocker.Mixfile do
     [
       app: :mix_docker,
       version: "0.5.0",
-      elixir: "~> 1.3",
-      build_embedded: Mix.env == :prod,
-      start_permanent: Mix.env == :prod,
+      elixir: "~> 1.5",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
       deps: deps(),
-
       description: description(),
       package: package(),
-
       source_url: "https://github.com/recruitee/mix_docker",
       docs: [main: "readme", extras: ["README.md"]]
     ]
@@ -31,14 +29,13 @@ defmodule MixDocker.Mixfile do
   end
 
   def application do
-    [applications: [:logger, :cowboy, :plug]]
+    [applications: [:logger]]
   end
 
   defp deps do
     [
-      {:distillery, "~> 1.2"},
-      {:cowboy, "~> 1.0.0"},
-      {:plug, "~> 1.0"},
+      {:distillery, "~> 2.0"},
+      {:plug_cowboy, "~> 2.0"},
       {:ex_doc, "~> 0.10", only: :dev}
     ]
   end
