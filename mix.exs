@@ -29,7 +29,7 @@ defmodule MixDocker.Mixfile do
   end
 
   def application do
-    [applications: [:logger]]
+    [applications: [:logger, :plug_cowboy]]
   end
 
   defp deps do
